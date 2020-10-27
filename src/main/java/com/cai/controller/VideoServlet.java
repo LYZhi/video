@@ -1,6 +1,5 @@
 package com.cai.controller;
 
-
 import com.cai.dao.VideoDao;
 import com.cai.model.Video;
 
@@ -16,7 +15,6 @@ import java.util.List;
 
 @WebServlet("/show.jsp")
 public class VideoServlet extends HttpServlet {
-
 
     @Override
     protected  void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -36,7 +34,6 @@ public class VideoServlet extends HttpServlet {
             }else {
                 totalPage = totalVideos % 6 > 0 ? totalVideos / 6 + 1 : totalVideos / 6;
             }
-
 
             request.setAttribute("curPage", page);
             request.setAttribute("prePage", page > 1 ? page - 1 : 1);

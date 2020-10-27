@@ -1,23 +1,44 @@
 package com.cai.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.Properties;
 
 public class DBUtils {
-    private static final String driverClass;
-    private static final String url;
-    private static final String username;
-    private static final String password;
+    private static String driverClass;
+    private static String url;
+    private static String username;
+    private static String password;
 
     static {
+        try {
+            // 1.通过当前类获取类加载器
+            ClassLoader classLoader = DBUtils.class.getClassLoader();
+            // 2.通过类加载器的方法获得一个输入流
+            InputStream in = classLoader.getResourceAsStream("test.properties");
+            // 3.创建一个properties对象(集合)
+            Properties props = new Properties();
+            // 4.加载输入流
+            props.load(in);
+            // 5.获取相关参数的值
+            driverClass = props.getProperty("driverClass");
+            url = props.getProperty("url");
+            username = props.getProperty("username");
+            password = props.getProperty("password");
 
-
-        driverClass = "com.mysql.jdbc.Driver";
-        url = "jdbc:mysql://localhost:3307/try";
-        username = "root";
-        password = "asdfghjkl";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+
     public static Connection getCon() {
+
+
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -35,7 +56,7 @@ public class DBUtils {
 
     //资源释放
     public static void closeDB(Connection con, PreparedStatement pstt,
-                               ResultSet res, Statement stmt)  {
+                               ResultSet res, Statement stmt) {
         if (con != null) {
             try {
                 con.close();

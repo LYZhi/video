@@ -23,7 +23,7 @@ public class NewCommentServlet extends HttpServlet {
         assert cookie != null;
         String username = cookie.getValue();
 
-        System.out.println("这是个啥video值？"+request.getParameter("videoId"));
+//        System.out.println("这是个啥video值？"+request.getParameter("videoId"));
         Integer  videoId = Integer.parseInt(request.getParameter("videoId"));
         try {
 //            System.out.println("用户名"+username+"视频ID"+videoId+"评论"+request.getParameter("comment1"));
